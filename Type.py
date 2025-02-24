@@ -19,7 +19,6 @@ def main(page: ft.Page):
     status_label = ft.Text(size=20)
     accuracy_label = ft.Text(size=20)
     progress_label = ft.Text(f"Words Typed: {current_word_index}/{total_words}", size=20)
-    input_field = ft.TextField(hint_text="Type the word here", on_submit=check_word)
 
     def update_ui():
         accuracy = (correct_count / (correct_count + incorrect_count)) * 100 if (correct_count + incorrect_count) > 0 else 100
@@ -32,11 +31,11 @@ def main(page: ft.Page):
 
         user_input = input_field.value.strip()
         if user_input == word_list[current_word_index]:
-            status_label.value = "Correct!"
+            status_label.value = "Correct"
             status_label.color = ft.colors.GREEN
             correct_count += 1
         else:
-            status_label.value = "Incorrect!"
+            status_label.value = "Incorrect"
             status_label.color = ft.colors.RED
             incorrect_count += 1
 
@@ -45,13 +44,15 @@ def main(page: ft.Page):
             word_display.value = word_list[current_word_index]
             update_ui()
         else:
-            word_display.value = "Game Over!"
+            word_display.value = "Game Over"
             input_field.disabled = True
             input_field.hint_text = ""
             status_label.value = ""
 
-        input_field.value = ""
+        input_field.value = ""  
         page.update()
+
+    input_field = ft.TextField(hint_text="Type the word here", on_submit=check_word)
 
     page.add(
         ft.Column(
